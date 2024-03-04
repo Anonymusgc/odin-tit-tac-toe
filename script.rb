@@ -10,6 +10,14 @@ module TitTacToe
       @board = Array.new(3) { Array.new(3, '-') }
     end
 
+    def game_start
+      display_board
+    end
+
+    def turn_start; end
+
+    def check_board; end
+
     def display_board
       puts '   0     1     2  '
       puts '      |     |     '
@@ -22,6 +30,16 @@ module TitTacToe
     end
   end
 
+  # player class
+  class Player
+    attr_accessor :id, :sign
+
+    def initialize(id, sign)
+      @id = id
+      @sign = sign
+    end
+  end
+
   obj = Game.new
-  obj.display_board
+  obj.game_start
 end
