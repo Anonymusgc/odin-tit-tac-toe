@@ -35,7 +35,7 @@ module TitTacToe
       pos_x, pos_y = user_input
       p pos_x
       p pos_y
-      board[pos_y][pos_x] = "#{current_player.sign} "
+      board[pos_y][pos_x] = current_player.sign
     end
 
     def user_input
