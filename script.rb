@@ -23,6 +23,7 @@ module TitTacToe
         # turn start
         place_sign
         # display board
+        display_board
         # switch player
         # check board
       end
@@ -30,21 +31,32 @@ module TitTacToe
 
     def place_sign
       puts "Player #{current_player.id}'s turn"
+      puts 'Input where you want to place the sign (for example 0 0)'
       pos_x, pos_y = user_input
       p pos_x
       p pos_y
+      board[pos_y][pos_x] = "#{current_player.sign} "
     end
 
     def user_input
-      puts 'Input where you want to place the sign (for example 0 0)'
       begin
         pos_x, pos_y = gets.chomp.split(' ')
         pos_x = Integer(pos_x)
         pos_y = Integer(pos_y)
-        raise ArgumentError if (pos_x < 0 || pos_x > 2) || (pos_y < 0 || pos_y > 2)
+        raise ArgumentError if (pos_x < 0 || pos_x > 2) || (pos_y < 0 || pos_y > 2) || board_pos_taken?(pos_x, pos_y)
       rescue ArgumentError
         puts 'Input out of range, please enter position again'
         retry
+      end
+      [pos_x, pos_y]
+    end
+
+    def board_pos_taken?(pos_x, pos_y)
+      if board[pos_y][pos_x] == 'X' || board[pos_y][pos_x] == 'O'
+        puts 'Position taken'
+        true
+      else
+        false
       end
     end
 
