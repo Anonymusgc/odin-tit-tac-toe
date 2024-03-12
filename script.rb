@@ -24,8 +24,11 @@ module TitTacToe
         place_sign
         # display board
         display_board
-        # switch player
+
         # check board
+
+        # switch player
+        switch_player
       end
     end
 
@@ -33,8 +36,8 @@ module TitTacToe
       puts "Player #{current_player.id}'s turn"
       puts 'Input where you want to place the sign (for example 0 0)'
       pos_x, pos_y = user_input
-      p pos_x
-      p pos_y
+      # p pos_x
+      # p pos_y
       board[pos_y][pos_x] = current_player.sign
     end
 
@@ -58,6 +61,10 @@ module TitTacToe
       else
         false
       end
+    end
+
+    def switch_player
+      self.current_player = current_player == @players[0] ? @players[1] : @players[0]
     end
 
     def check_board; end
