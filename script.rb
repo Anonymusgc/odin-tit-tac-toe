@@ -24,9 +24,8 @@ module TitTacToe
         place_sign
         # display board
         display_board
-
         # check board
-
+        check_board
         # switch player
         switch_player
       end
@@ -67,7 +66,43 @@ module TitTacToe
       self.current_player = current_player == @players[0] ? @players[1] : @players[0]
     end
 
-    def check_board; end
+    def check_board
+      sign = current_player.sign
+      for i in 0...board.length do
+        # horizontal check
+        if board[i][0] == sign && board[i][1] == sign && board[i][2] == sign
+          display_winner
+        # vertical check
+        elsif board[0][i] == sign && board[1][i] == sign && board[2][i] == sign
+          display_winner
+        end
+      end
+      # diagonal check
+      if [board[0][0], board[1][1], board[2][2]].all? { |pos| pos == sign }
+        display_winner
+      elsif board[0][2] == sign && board[1][1] == sign && board[2][0] == sign
+        display_winner
+      end
+      display_tie if board_full?
+    end
+
+    def display_winner
+      puts "Player #{current_player.id} win !!!"
+      self.game_stop = true
+    end
+
+    def display_tie
+      puts 'Tie !!'
+      self.game_stop = true
+    end
+
+    def board_full?
+      if board.flatten.any? { |pos| pos == '-' }
+        false
+      else
+        true
+      end
+    end
 
     def display_board
       puts '   0     1     2  '
