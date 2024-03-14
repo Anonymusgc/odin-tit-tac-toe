@@ -7,12 +7,15 @@ module TitTacToe
     attr_accessor :board, :game_stop, :current_player
 
     def initialize
+      # create board
       @board = Array.new(3) { Array.new(3, '-') }
+
       @game_stop = false
 
-      # create player objects
+      # create player objects and set current player
       @players = [Player.new(1, 'X'), Player.new(2, 'O')]
       @current_player = @players[0]
+
       puts 'Tic Tac Toe Game'
     end
 
@@ -73,9 +76,11 @@ module TitTacToe
         # horizontal check
         if board[i][0] == sign && board[i][1] == sign && board[i][2] == sign
           display_winner
+          return
         # vertical check
         elsif board[0][i] == sign && board[1][i] == sign && board[2][i] == sign
           display_winner
+          return
         end
       end
       # diagonal check
@@ -83,8 +88,9 @@ module TitTacToe
         display_winner
       elsif board[0][2] == sign && board[1][1] == sign && board[2][0] == sign
         display_winner
+      elsif board_full?
+        display_tie
       end
-      display_tie if board_full?
     end
 
     def display_winner
