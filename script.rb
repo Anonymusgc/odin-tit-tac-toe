@@ -29,6 +29,7 @@ module TitTacToe
         # switch player
         switch_player
       end
+      play_again
     end
 
     def place_sign
@@ -114,11 +115,26 @@ module TitTacToe
       puts "2  #{board[2][0]}  |  #{board[2][1]}  |  #{board[2][2]}  "
       puts '      |     |     '
     end
+
+    def play_again
+      puts 'Do you want to play another round ? (y/n)'
+      decision = gets.chomp.downcase
+      return unless decision == 'y'
+
+      reset_game
+      game_start
+    end
+
+    def reset_game
+      self.current_player = @players[0]
+      self.board = Array.new(3) { Array.new(3, '-') }
+      self.game_stop = false
+    end
   end
 
   # player class
   class Player
-    attr_accessor :id, :sign
+    attr_reader :id, :sign
 
     def initialize(id, sign)
       @id = id
