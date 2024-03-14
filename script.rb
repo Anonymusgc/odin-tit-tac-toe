@@ -4,8 +4,6 @@
 module TitTacToe
   # game class
   class Game
-    attr_accessor :board, :game_stop, :current_player
-
     def initialize
       # create board
       @board = Array.new(3) { Array.new(3, '-') }
@@ -34,6 +32,10 @@ module TitTacToe
       end
       play_again
     end
+
+    private
+
+    attr_accessor :board, :game_stop, :current_player
 
     def place_sign
       puts "Player #{current_player.id}'s turn"
@@ -104,11 +106,7 @@ module TitTacToe
     end
 
     def board_full?
-      if board.flatten.any? { |pos| pos == '-' }
-        false
-      else
-        true
-      end
+      board.flatten.any? { |pos| pos == '-' } ? false : true
     end
 
     def display_board
